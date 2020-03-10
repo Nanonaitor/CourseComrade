@@ -10,16 +10,24 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
     private Button buttonSearch;
 
+    // everything that needs Firebase goes through courseManager
+    private CourseManager courseManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize courseManager
+        // This will grab all information needed from Firebase
+        courseManager = new CourseManager();
 
         getSupportActionBar().setTitle("Home");
         buttonSearch = (Button) findViewById(R.id.buttonSearch);
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 openSearchActivity();
             }
         });
