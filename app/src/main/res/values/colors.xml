@@ -2,5 +2,10 @@
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimaryWhite">#FFFFFF</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="UCIYellow">#FFC72C</color>
+    <color name="UCIBlue">#0C2340</color>
+    <color name="title_color">#FFFFFF</color>
+
 </resources>
