@@ -18,7 +18,6 @@ public class CourseManager {
     Map<String, Map<String, String>> courses;
     ArrayList<String> depts;
 
-
     public CourseManager() {
         depts = new ArrayList<String>();
         courses = new HashMap<String, Map<String, String>>();
@@ -29,8 +28,6 @@ public class CourseManager {
         deptListeners(deptsRef);
         coursesListeners(coursesRef);
     }
-
-
 
     private void deptListeners(DatabaseReference ref){
         ref.addValueEventListener(new ValueEventListener() {
@@ -60,16 +57,9 @@ public class CourseManager {
         });
     }
 
-
-
-
     public void printDepts(){
         for(String dept: depts){
             System.out.println(dept);
         }
     }
-
-
-
-
 }
