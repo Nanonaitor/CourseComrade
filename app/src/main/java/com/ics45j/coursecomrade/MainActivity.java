@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private Button buttonSearch;
+    private Button buttonSearch, buttonUserCourses;
 
     // everything that needs Firebase goes through courseManager
     private CourseManager courseManager;
@@ -31,10 +31,24 @@ public class MainActivity extends AppCompatActivity {
                 openSearchActivity();
             }
         });
+
+        getSupportActionBar().setTitle("Home");
+        buttonUserCourses = (Button) findViewById(R.id.buttonUserCourses);
+        buttonUserCourses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUserCoursesActivity();
+            }
+        });
     }
 
     public void openSearchActivity() {
         Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
+
+    public void openUserCoursesActivity() {
+        Intent intent = new Intent(this, UserCoursesActivity.class);
         startActivity(intent);
     }
 }

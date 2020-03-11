@@ -9,26 +9,33 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class SearchActivity extends AppCompatActivity {
-    EditText textCourseNumber;
+    //Variables
+    EditText textCourseNumberInput;
     Button buttonReset, buttonHelp, buttonSubmit;
+    int submittedCourse;
+    CourseManager cm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        //Action Bar Declarations
         getSupportActionBar().setTitle("Search");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        textCourseNumber = findViewById(R.id.textCourseNumber);
+        //Variables set
+        textCourseNumberInput = (EditText)findViewById(R.id.textCourseNumber);
         buttonReset = findViewById(R.id.buttonReset);
         buttonHelp = findViewById(R.id.buttonHelp);
         buttonSubmit = findViewById(R.id.buttonSubmit);
+        submittedCourse = 0;
+        cm = new CourseManager();
 
         buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textCourseNumber.setText("");
+                textCourseNumberInput.setText("");
             }
         });
         buttonHelp.setOnClickListener(new View.OnClickListener() {
@@ -40,15 +47,24 @@ public class SearchActivity extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Implement this...
-                Toast.makeText(getApplicationContext(),"Hi Nathan, Fix Me! I don't work lol",Toast.LENGTH_SHORT).show();
+                try {
+                    submittedCourse = Integer.valueOf(textCourseNumberInput.getText().toString());
+                    if(submittedCourse < 10000)
+                        Toast.makeText(getApplicationContext(), "Please input a 5 digit number", Toast.LENGTH_SHORT).show();
+                    else {
+                        //TODO: ADD THE COURSE TO FIREBASE
+                        Toast.makeText(getApplicationContext(), "Added course #" + submittedCourse + " to your course list", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), "Please input a course number.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-        public void openDialog() {//Gets stuff from Warning Message
-            WarningDialog warningDialog = new WarningDialog();
-            warningDialog.show(getSupportFragmentManager(), "example dialog");
-        }
 
-        //Constraints on Android Studio Input: https://www.youtube.com/watch?v=5maLtpNsOkc
+    public void openDialog() {//Gets stuff from Warning Message
+        WarningDialog warningDialog = new WarningDialog();
+        warningDialog.show(getSupportFragmentManager(), "example dialog");
     }
+}
