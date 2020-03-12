@@ -24,6 +24,7 @@ public class UserCoursesActivity extends AppCompatActivity {
 
     private Button buttonSubmit, buttonRemove;
     private EditText submitCourse, removeCourse;
+    ArrayList<String> savedUserCourses;
 
     private CourseManager cm;
 
@@ -35,6 +36,7 @@ public class UserCoursesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String username = bundle.getString("username");
+        savedUserCourses = new ArrayList<String>(bundle.getStringArrayList("userCourses"));
 
         cm = new CourseManager(username);
         mCourseList = new ArrayList<>();
@@ -83,46 +85,28 @@ public class UserCoursesActivity extends AppCompatActivity {
     }
 
     public void removeCourse(int position) {
-        //mCourseList.remove(position);
-        System.out.println(cm.getUserId());
-        System.out.println(cm.getUserCourses());
-        ArrayList<Integer> courseList = new ArrayList<Integer>(cm.getUserCourses());
-        System.out.println("yeet");
-        System.out.println(courseList);
-        cm.getUserCoursesMap();
-        System.out.println("reet");
-
-        courseList.toArray();
+        ArrayList<String> courseList = new ArrayList<String>(cm.getUserCourses());
+        // i was using this for testing... can u implement this correctly?
 
         for(int i = 0; i < courseList.size(); ++i){
             System.out.println("skeet");
-            System.out.println(courseList.get(i));
-            //code = (Integer)courseList.get(i);
-            //Integer code = new Integer(courseList.get(i));
-            System.out.println("code");
-            Map<String, String> course = cm.getCourse(27602);
-
-            mCourseList.add(new ExampleCourse(R.drawable.ic_class, course.get("code"), course.get("status")));
         }
         mCourseAdapter.notifyDataSetChanged();
     }
 
     public void createCourseList() {
 
+        System.out.println("creating courses");
+        System.out.println(savedUserCourses);
+        for(int i = 0; i < savedUserCourses.size(); ++i){
+            System.out.println("skeet");
+            System.out.println(cm.getCourse(savedUserCourses.get(i)));
+            System.out.println("code");
+            Map<String, String> course = cm.getCourse(savedUserCourses.get(i));
 
-        System.out.println(cm.getUserId());
-        System.out.println(cm.getUserCourses());
-        for(Integer code: cm.getUserCourses()){
-            System.out.println(code);
-            //Map<String, String> course = cm.getCourse(code);
-
-
-            //mCourseList.add(new ExampleCourse(R.drawable.ic_class, course.get("code"), course.get("status")));
+            mCourseList.add(new ExampleCourse(R.drawable.ic_class, course.get("code"), course.get("status")));
         }
-
-        mCourseList.add(new ExampleCourse(R.drawable.ic_class, "Class 1", "OPEN"));//TESTING RIGHT NOW
-        mCourseList.add(new ExampleCourse(R.drawable.ic_class, "Class 2", "FULL"));
-        mCourseList.add(new ExampleCourse(R.drawable.ic_class, "Class 3", "FULL"));
+        mCourseList.add(new ExampleCourse(R.drawable.ic_class, "class", "status"));
 
     }
 

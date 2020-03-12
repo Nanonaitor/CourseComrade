@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button buttonSearch, buttonUserCourses;
-    private String username = "aathan";
+    private String username = "dathan";
 
     // everything that needs Firebase goes through courseManager
     // actually it's not needed here
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public void openUserCoursesActivity() {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
+        bundle.putStringArrayList("userCourses", courseManager.getUserCourses());
 
         Intent intent = new Intent(this, UserCoursesActivity.class);
         intent.putExtras(bundle);

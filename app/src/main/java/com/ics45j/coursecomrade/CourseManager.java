@@ -18,7 +18,7 @@ public class CourseManager {
 
     private Map<String, Map<String, String>> courses;
     private ArrayList<String> depts;
-    private ArrayList<Integer> userCourses;
+    private ArrayList<String> userCourses;
 
     private final String userId;
     private DatabaseReference userRef;
@@ -27,25 +27,20 @@ public class CourseManager {
     public CourseManager(String userId) {
         depts = new ArrayList<String>();
         courses = new HashMap<String, Map<String, String>>();
-        userCourses = new ArrayList<Integer>();
+        userCourses = new ArrayList<String>();
 
         this.userId = userId;
 
+        DatabaseReference AllUserCoursesRef = database.getReference("userCourses");
+        userRef = AllUserCoursesRef.child(this.userId);
+        userCoursesListener(userRef);
 
-
-
-        DatabaseReference userCoursesRef = database.getReference("userCourses");
-        userRef = userCoursesRef.child(this.userId);
-        userListener(userRef);
-        //userCoursesListeners(userCoursesRef, this.userId);
+        DatabaseReference coursesRef= database.getReference("courses");
+        coursesRef.keepSynced(true);
+        coursesListeners(coursesRef);
 
         DatabaseReference deptsRef= database.getReference("depts");
         deptListeners(deptsRef);
-
-        DatabaseReference coursesRef= database.getReference("courses");
-        coursesListeners(coursesRef);
-
-
 
     }
 
@@ -63,8 +58,9 @@ public class CourseManager {
 
     public void addCourse(int code){
         // check for duplicates
-        if(!userCourses.contains(code)){
-            userCourses.add(code);
+        String codeStr = Integer.toString(code);
+        if(!userCourses.contains(codeStr)){
+            userCourses.add(codeStr);
             userRef.setValue(userCourses);
         }
     }
@@ -72,11 +68,9 @@ public class CourseManager {
 
 
     public void addCourse(String code){
-        // convert code to int
-        Integer codeInt = Integer.parseInt(code);
 
-        if(!userCourses.contains(codeInt)){
-            userCourses.add(codeInt);
+        if(!userCourses.contains(code)){
+            userCourses.add(code);
             userRef.setValue(userCourses);
         }
     }
@@ -100,14 +94,24 @@ public class CourseManager {
     }
 
 
-    private void userListener(DatabaseReference ref){
+    private void userCoursesListener(DatabaseReference ref){
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot != null){
+                    System.out.println("in userCoursesListener");
+                    System.out.println(dataSnapshot.getValue());
                     userCourses.clear();
-                    userCourses = (ArrayList<Integer>)dataSnapshot.getValue();
+
+                    for(DataSnapshot data: dataSnapshot.getChildren()){
+                        System.out.println("adding code");
+                        System.out.println(data.getValue());
+                        String code = (String)data.getValue();
+                        userCourses.add(code);
+                        System.out.println(code);
+                    }
+
                 }
             }
 
@@ -117,27 +121,6 @@ public class CourseManager {
         });
     }
 
-
-    private void userCoursesListeners(DatabaseReference ref, final String userId){
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                if (dataSnapshot.child(userId).exists()){
-                    DataSnapshot userData = dataSnapshot.child(userId);
-                    userCourses.clear();
-                    userCourses = (ArrayList<Integer>)userData.getValue();
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-    }
 
 
     private void coursesListeners(DatabaseReference ref){
@@ -145,6 +128,8 @@ public class CourseManager {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 courses.clear();
+                System.out.println("in courses listener");
+                System.out.println(dataSnapshot.getValue());
                 courses = (Map<String, Map<String, String>>)dataSnapshot.getValue();
             }
 
@@ -166,9 +151,9 @@ public class CourseManager {
 
 
 
-    public ArrayList<Integer> getUserCourses() {
+    public ArrayList<String> getUserCourses() {
 
-        return (ArrayList<Integer>)userCourses;
+        return (ArrayList<String>)userCourses;
     }
 
     public ArrayList<Map<String, String>> getUserCoursesMap(){
@@ -176,7 +161,7 @@ public class CourseManager {
         ArrayList<Map<String,String>> result = new ArrayList<Map<String, String>>();
         System.out.println("in couses mao");
         System.out.println(userCourses);
-        for(Integer code: userCourses){
+        for(String code: userCourses){
             System.out.println(code);
             result.add(courses.get(code));
         }
