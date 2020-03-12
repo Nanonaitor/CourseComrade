@@ -2,11 +2,14 @@ package com.ics45j.coursecomrade;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
     //Variables
@@ -30,7 +33,11 @@ public class SearchActivity extends AppCompatActivity {
         buttonHelp = findViewById(R.id.buttonHelp);
         buttonSubmit = findViewById(R.id.buttonSubmit);
         submittedCourse = 0;
-        cm = new CourseManager();
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String username = bundle.getString("username");
+        cm = new CourseManager(username);
 
         buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +59,11 @@ public class SearchActivity extends AppCompatActivity {
                     if(submittedCourse < 10000)
                         Toast.makeText(getApplicationContext(), "Please input a 5 digit number", Toast.LENGTH_SHORT).show();
                     else {
-                        //TODO: ADD THE COURSE TO FIREBASE
-                        Toast.makeText(getApplicationContext(), "Added course #" + submittedCourse + " to your course list", Toast.LENGTH_SHORT).show();
+                        // check if course exists
+                        if(cm.getCourse(submittedCourse) != null){
+                            cm.addCourse(submittedCourse);
+                            Toast.makeText(getApplicationContext(), "Added course #" + submittedCourse + " to your course list", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
                 catch (NumberFormatException e) {

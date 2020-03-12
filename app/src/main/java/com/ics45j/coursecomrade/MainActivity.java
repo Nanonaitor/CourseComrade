@@ -9,18 +9,24 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button buttonSearch, buttonUserCourses;
+    private String username = "aathan";
 
     // everything that needs Firebase goes through courseManager
+    // actually it's not needed here
     private CourseManager courseManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize courseManager
+        //Initialize courseManager
         // This will grab all information needed from Firebase
-        courseManager = new CourseManager();
+        courseManager = new CourseManager(username);
+
+
 
         getSupportActionBar().setTitle("Home");
         buttonSearch = (Button) findViewById(R.id.buttonSearch);
@@ -43,12 +49,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openSearchActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+
         Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void openUserCoursesActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+
         Intent intent = new Intent(this, UserCoursesActivity.class);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
