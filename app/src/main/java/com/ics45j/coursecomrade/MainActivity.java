@@ -26,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
         // This will grab all information needed from Firebase
         courseManager = new CourseManager(username);
 
-
-
+        //Action Bar Declarations
         getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         buttonSearch = (Button) findViewById(R.id.buttonSearch);
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getSupportActionBar().setTitle("Home");
         buttonUserCourses = (Button) findViewById(R.id.buttonUserCourses);
         buttonUserCourses.setOnClickListener(new View.OnClickListener() {
             @Override

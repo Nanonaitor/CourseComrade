@@ -10,12 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".LoginActivity"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:parentActivityName=".StartupActivity"/>
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".StartupActivity"/>
+        <activity
             android:name=".UserCoursesActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SearchActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
