@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SignUpActivity extends AppCompatActivity {
     //Variables
     EditText textUsernameInput;
     Button buttonSignUp;
     String submittedUsername;
+    private CourseManager cm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +33,14 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 submittedUsername = textUsernameInput.getText().toString();
-                //TODO: Make SignUp work!
-                /*if(submittedUsername == Some_Username_In_Firebase)
+                cm = new CourseManager(submittedUsername, true); //Making a new user
+                if(cm.makeNewUser(submittedUsername) == false){
                     Toast.makeText(getApplicationContext(), "That username is taken. Please try again.", Toast.LENGTH_SHORT).show();
+                }
                 else {
-                    // Make an account!
-                }*/
+                    Toast.makeText(getApplicationContext(), "Account Made!", Toast.LENGTH_SHORT).show();
+                    textUsernameInput.setText("");
+                }
 
             }
         });

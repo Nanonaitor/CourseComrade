@@ -42,10 +42,19 @@ public class CourseManager {
         DatabaseReference deptsRef= database.getReference("depts");
         deptListeners(deptsRef);
 
+        //Remove these if u need to Nathan, just testing stuff...
+        System.out.println();
+    }
+
+    //Constructor to make a new user.
+    public CourseManager(String userId, boolean newUser){
+        this.userId = userId;
+        DatabaseReference AllUserCoursesRef = database.getReference("userCourses");
+        userRef = FirebaseDatabase.getInstance().getReference().child("userCourses");
     }
 
 
-    public Map<String, String> getCourse(String code){
+    public Map<String, String> getCourse(String code){//TODO: Fix this because it returns null for some reason.
         return courses.get(code);
     }
 
@@ -66,7 +75,6 @@ public class CourseManager {
     }
 
 
-
     public void addCourse(String code){
 
         if(!userCourses.contains(code)){
@@ -74,9 +82,6 @@ public class CourseManager {
             userRef.setValue(userCourses);
         }
     }
-
-
-
 
 
     private void deptListeners(DatabaseReference ref){
@@ -122,7 +127,6 @@ public class CourseManager {
     }
 
 
-
     private void coursesListeners(DatabaseReference ref){
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -166,5 +170,13 @@ public class CourseManager {
             result.add(courses.get(code));
         }
         return result;
+    }
+
+    public boolean makeNewUser(String checkID) { //ONLY USE THIS METHOD FOR SIGN-UP ACTIVITY!
+        if (userRef.child(userId).getRoot() != null){
+            userRef.child(userId).setValue("");
+            return true;
+        }
+        return false;
     }
 }

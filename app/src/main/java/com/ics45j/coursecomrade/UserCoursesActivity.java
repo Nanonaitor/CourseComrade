@@ -16,16 +16,14 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class UserCoursesActivity extends AppCompatActivity {
+    //Variables
     private ArrayList<ExampleCourse> mCourseList;
-
     private RecyclerView mCourseRecyclerView;
     private RecyclerView.Adapter mCourseAdapter;
     private RecyclerView.LayoutManager mCourseLayout;
-
-    private Button buttonSubmit, buttonRemove;
-    private EditText submitCourse, removeCourse;
+    private Button buttonRemove;
+    private EditText removeCourse;
     ArrayList<String> savedUserCourses;
-
     private CourseManager cm;
 
     @Override
@@ -33,38 +31,25 @@ public class UserCoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_courses);
 
+        //Action Bar Declarations
+        getSupportActionBar().setTitle("My Courses");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Declarations
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String username = bundle.getString("username");
         savedUserCourses = new ArrayList<String>(bundle.getStringArrayList("userCourses"));
-
         cm = new CourseManager(username);
         mCourseList = new ArrayList<>();
+        buttonRemove = findViewById(R.id.buttonRemove);
+        removeCourse = findViewById(R.id.editTextDelete);
 
-
-        getSupportActionBar().setTitle("My Courses");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // CourseManager must be initialized before this!
+        //Execute Methods (before course manager!)
         createCourseList();
         buildRecyclerView();
 
-
-
-
-        //buttonSubmit = findViewById(R.id.buttonSubmit);
-        buttonRemove = findViewById(R.id.buttonRemove);
-        //submitCourse = findViewById(R.id.textCourseNumber);
-        removeCourse = findViewById(R.id.editTextDelete);
-
-        /*buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = Integer.parseInt(submitCourse.getText().toString());
-                insertCourse(position);
-            }
-        });*/
-
+        //Button methods
         buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,35 +64,26 @@ public class UserCoursesActivity extends AppCompatActivity {
         });
     }
 
-    public void insertCourse(int position) {//REMOVE THIS PROBABLY
-        mCourseList.add(position, new ExampleCourse(R.drawable.ic_class, "New Course Added at " + position, "OPEN?"));
-        mCourseAdapter.notifyDataSetChanged();
-    }
-
     public void removeCourse(int position) {
         ArrayList<String> courseList = new ArrayList<String>(cm.getUserCourses());
-        // i was using this for testing... can u implement this correctly?
-
         for(int i = 0; i < courseList.size(); ++i){
-            System.out.println("skeet");
+            System.out.println("Deleted a course.");
         }
         mCourseAdapter.notifyDataSetChanged();
     }
 
     public void createCourseList() {
-
-        System.out.println("creating courses");
+        System.out.println("Creating courses!");
         System.out.println(savedUserCourses);
-        for(int i = 0; i < savedUserCourses.size(); ++i){
-            System.out.println("skeet");
-            System.out.println(cm.getCourse(savedUserCourses.get(i)));
+        for (String element: savedUserCourses){
+            System.out.println("Course Displayed!");
+            System.out.println(cm.getCourse(element));//TODO: fix the getCourse method in CourseManager.
             System.out.println("code");
-            Map<String, String> course = cm.getCourse(savedUserCourses.get(i));
+            Map<String, String> course = cm.getCourse(element);
 
-            mCourseList.add(new ExampleCourse(R.drawable.ic_class, course.get("code"), course.get("status")));
+            mCourseList.add(new ExampleCourse(R.drawable.ic_class, course.get("code"), course.get("status")));//Crashes here???
         }
         mCourseList.add(new ExampleCourse(R.drawable.ic_class, "class", "status"));
-
     }
 
     public void buildRecyclerView() {

@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 submittedUsername = textUsernameInput.getText().toString();
+                Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
                 //TODO: Make Login work!
                 openMainActivity();
                 /*if(submittedUsername != Some_Username_In_Firebase)
