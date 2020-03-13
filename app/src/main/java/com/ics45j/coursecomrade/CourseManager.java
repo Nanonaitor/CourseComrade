@@ -35,7 +35,7 @@ public class CourseManager {
         depts = new ArrayList<String>();
         courses = new HashMap<String, Map<String, String>>();
         userCourses = new ArrayList<String>();
-
+        chats = new HashMap<String, ArrayList<Map<String, String>>>();
 
         adapter = null;
 
@@ -46,6 +46,7 @@ public class CourseManager {
         coursesRef.keepSynced(true); // helped fix a bug
         coursesListeners(coursesRef);
 
+        // Get all chat data
         DatabaseReference chatsRef = database.getReference("chats");
         chatsListeners(chatsRef);
 
@@ -173,10 +174,10 @@ public class CourseManager {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                courses.clear();
+                chats.clear();
                 System.out.println("in courses listener");
                 System.out.println(dataSnapshot.getValue());
-                courses = (Map<String, Map<String, String>>)dataSnapshot.getValue();
+                chats = (Map<String, ArrayList<Map<String, String>>>)dataSnapshot.getValue();
             }
 
             @Override
@@ -213,7 +214,7 @@ public class CourseManager {
     }
 
     public ArrayList<Map<String, String>> getUserCoursesMap(){
-
+        // not used
         ArrayList<Map<String,String>> result = new ArrayList<Map<String, String>>();
         System.out.println("in couses mao");
         System.out.println(userCourses);
