@@ -8,20 +8,22 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textAddClassMsg"
+        android:id="@+id/textUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Add your classes here"
+        android:gravity="center"
+        android:text="Welcome\n Jane Doe"
         android:textColor="@color/colorPrimaryWhite"
-        android:textSize="20dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.044" />
 
     <TextView
         android:id="@+id/textMyCoursesMsg"
@@ -36,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.338" />
+        app:layout_constraintVertical_bias="0.36" />
 
     <TextView
         android:id="@+id/textCreditsStationery"
@@ -58,9 +60,7 @@
         android:layout_height="36dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="111dp"
-        android:layout_marginTop="125dp"
         android:layout_marginEnd="112dp"
-        android:layout_marginBottom="570dp"
         android:background="@drawable/rounded_button"
         android:text="Search"
         android:textColor="@color/colorPrimaryWhite"
@@ -68,8 +68,26 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.205" />
+
+    <TextView
+        android:id="@+id/textAddClassMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Add your classes here"
+        android:textColor="@color/colorPrimaryWhite"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.255" />
 
     <Button
         android:id="@+id/buttonUserCourses"
@@ -77,15 +95,13 @@
         android:layout_height="36dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="111dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="176dp"
         android:layout_marginEnd="56dp"
-        android:layout_marginBottom="473dp"
         android:background="@drawable/rounded_button"
         android:text="My Courses"
         android:textColor="@color/colorPrimaryWhite"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

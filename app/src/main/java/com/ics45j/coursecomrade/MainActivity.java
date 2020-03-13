@@ -6,13 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private Button buttonSearch, buttonUserCourses;
     private String username;
+    private TextView displayedUsername;
 
     // everything that needs Firebase goes through courseManager
     // actually it's not needed here
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         username = bundle.getString("username");
         System.out.println("opening main");
 
+        displayedUsername = findViewById(R.id.textUsername);
+        displayedUsername.setText("Welcome\n" + username.toUpperCase() + "!");
+
         //Initialize courseManager
         // This will grab all information needed from Firebase
         courseManager = new CourseManager(username);
@@ -36,16 +43,6 @@ public class MainActivity extends AppCompatActivity {
         //Action Bar Declarations
         getSupportActionBar().setTitle("Home");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Timeout to Allow time for data to be retrieved.
-        /* // you NEVER want to stop the main thread
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-         */
 
         //Buttons
         buttonSearch = (Button) findViewById(R.id.buttonSearch);
