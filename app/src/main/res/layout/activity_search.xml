@@ -21,8 +21,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCreditsBoard" />
+        app:layout_constraintTop_toBottomOf="@+id/textCreditsBoard"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/textCourseNumber"
@@ -58,7 +60,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintVertical_bias="0.245" />
 
     <Button
         android:id="@+id/buttonReset"
@@ -75,23 +77,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonSubmit"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.184" />
+        app:layout_constraintVertical_bias="0.245" />
 
     <Button
-        android:id="@+id/buttonSaveChanges"
-        android:layout_width="159dp"
-        android:layout_height="48dp"
+        android:id="@+id/buttonBackOutSearch"
+        android:layout_width="139dp"
+        android:layout_height="52dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_button"
-        android:text="Save Changes"
+        android:text="Go Back"
         android:textColor="@color/colorPrimaryWhite"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintVertical_bias="0.946" />
 
     <ImageView
         android:id="@+id/imageView"

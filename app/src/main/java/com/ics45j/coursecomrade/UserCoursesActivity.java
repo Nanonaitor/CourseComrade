@@ -21,10 +21,11 @@ public class UserCoursesActivity extends AppCompatActivity {
     private RecyclerView mCourseRecyclerView;
     private RecyclerView.Adapter mCourseAdapter;
     private RecyclerView.LayoutManager mCourseLayout;
-    private Button buttonRemove;
+    private Button buttonRemove, buttonBack;
     private EditText removeCourse;
     ArrayList<String> savedUserCourses;
     private CourseManager cm;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +34,19 @@ public class UserCoursesActivity extends AppCompatActivity {
 
         //Action Bar Declarations
         getSupportActionBar().setTitle("My Courses");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Declarations
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        String username = bundle.getString("username");
-        savedUserCourses = new ArrayList<String>(bundle.getStringArrayList("userCourses"));
-        cm = new CourseManager(username);
         mCourseList = new ArrayList<>();
         buttonRemove = findViewById(R.id.buttonRemove);
+        buttonBack = findViewById(R.id.buttonBackOutUserCourses);
         removeCourse = findViewById(R.id.editTextDelete);
+        Intent intent = getIntent();
+
+        Bundle bundle = intent.getExtras();
+        username = bundle.getString("username");
+        savedUserCourses = new ArrayList<String>(bundle.getStringArrayList("userCourses"));
+        cm = new CourseManager(username);
 
         //Execute Methods (before course manager!)
         createCourseList();
@@ -62,6 +65,12 @@ public class UserCoursesActivity extends AppCompatActivity {
                 }
             }
         });
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
     }
 
     public void removeCourse(int position) {
@@ -70,6 +79,14 @@ public class UserCoursesActivity extends AppCompatActivity {
             System.out.println("Deleted a course.");
         }
         mCourseAdapter.notifyDataSetChanged();
+    }
+
+    public void openMainActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void createCourseList() {

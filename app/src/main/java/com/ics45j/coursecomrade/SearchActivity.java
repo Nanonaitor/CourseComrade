@@ -14,7 +14,7 @@ import java.util.Map;
 public class SearchActivity extends AppCompatActivity {
     //Variables
     EditText textCourseNumberInput;
-    Button buttonReset, buttonHelp, buttonSubmit, buttonSaveChanges;
+    Button buttonReset, buttonHelp, buttonSubmit, buttonSaveChanges, buttonBack;
     int submittedCourse;
     CourseManager cm;
     private String username;
@@ -26,14 +26,14 @@ public class SearchActivity extends AppCompatActivity {
 
         //Action Bar Declarations
         getSupportActionBar().setTitle("Search");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Variables set
+        //Declarations
         textCourseNumberInput = (EditText)findViewById(R.id.textCourseNumber);
         buttonReset = findViewById(R.id.buttonReset);
         buttonHelp = findViewById(R.id.buttonHelp);
         buttonSubmit = findViewById(R.id.buttonSubmit);
-        buttonSaveChanges = findViewById(R.id.buttonSaveChanges);
+        buttonBack = findViewById(R.id.buttonBackOutSearch);
         submittedCourse = 0;
 
         Intent intent = getIntent();
@@ -53,14 +53,6 @@ public class SearchActivity extends AppCompatActivity {
                 openDialog();
             }
         });
-
-        buttonSaveChanges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMainActivity();
-            }
-        });
-
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +71,12 @@ public class SearchActivity extends AppCompatActivity {
                 catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), "Please input a course number.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
             }
         });
     }

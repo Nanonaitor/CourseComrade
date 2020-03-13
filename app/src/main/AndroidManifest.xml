@@ -19,11 +19,11 @@
             android:name=".LoginActivity"
             android:parentActivityName=".StartupActivity"/>
         <activity
-            android:name=".UserCoursesActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".UserCoursesActivity"/>
+            <!--android:parentActivityName=".MainActivity"-->
         <activity
-            android:name=".SearchActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".SearchActivity"/>
+            <!--android:parentActivityName=".MainActivity"-->
         <activity android:name=".StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
