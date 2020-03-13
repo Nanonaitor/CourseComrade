@@ -10,9 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class courseAdapter extends RecyclerView.Adapter<courseAdapter.courseViewHolder> {
-    private ArrayList<ExampleCourse> mCourseList;
+    private CourseManager courseManager;
 
     public static class courseViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
@@ -26,9 +27,9 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.courseView
         }
     }
 
-    public courseAdapter(ArrayList<ExampleCourse> courseList) {
-        mCourseList = courseList;
-    }
+
+
+    public courseAdapter(CourseManager courseManager) { this.courseManager = courseManager;}
 
     @NonNull
     @Override
@@ -40,14 +41,15 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.courseView
 
     @Override
     public void onBindViewHolder(@NonNull courseViewHolder holder, int position) {
-        ExampleCourse currentCourse = mCourseList.get(position);
-        holder.image.setImageResource(currentCourse.getImageResource());
-        holder.text1.setText(currentCourse.getText1());
-        holder.text2.setText(currentCourse.getText2());
+        Map<String,String> currentCourse = courseManager.getCourses().get(courseManager.getUserCourses().get(position));
+        holder.image.setImageResource(R.drawable.ic_class);
+        holder.text1.setText(currentCourse.get("code") + " " + currentCourse.get("labels") + "\n"
+                                + currentCourse.get("instructor"));
+        holder.text2.setText(currentCourse.get("status"));
     }
 
     @Override
     public int getItemCount() {
-        return mCourseList.size();
+        return courseManager.getUserCourses().size();
     }
 }

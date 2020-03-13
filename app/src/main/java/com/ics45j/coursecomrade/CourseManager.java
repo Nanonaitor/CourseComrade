@@ -1,6 +1,8 @@
 package com.ics45j.coursecomrade;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,22 +25,36 @@ public class CourseManager {
     private String userId;
     private DatabaseReference userRef;
 
+    private RecyclerView.Adapter adapter;
+
+
 
     public CourseManager(String userId) {
         depts = new ArrayList<String>();
         courses = new HashMap<String, Map<String, String>>();
         userCourses = new ArrayList<String>();
 
+        adapter = null;
+
         this.userId = userId;
 
-        DatabaseReference AllUserCoursesRef = database.getReference("userCourses");
-        userRef = AllUserCoursesRef.child(this.userId);
-        userCoursesListener(userRef);
-
+        // Get course reference and grab all course data from firebase
         DatabaseReference coursesRef= database.getReference("courses");
-        coursesRef.keepSynced(true);
+        coursesRef.keepSynced(true); // helped fix a bug
         coursesListeners(coursesRef);
 
+        // Get reference to all users
+        DatabaseReference AllUserCoursesRef = database.getReference("userCourses");
+
+        // Get reference to this specific user
+        userRef = AllUserCoursesRef.child(this.userId);
+
+        // Grab data for this specific user from firebase
+        userCoursesListener(userRef);
+
+
+
+        // Used for testing purposes
         DatabaseReference deptsRef= database.getReference("depts");
         deptListeners(deptsRef);
 
@@ -46,7 +62,11 @@ public class CourseManager {
         System.out.println();
     }
 
-    //Constructor to make a new user.
+
+
+
+
+    // Constructor to make a new user. Not really needed
     public CourseManager(String userId, boolean newUser){
         this.userId = userId;
         DatabaseReference AllUserCoursesRef = database.getReference("userCourses");
@@ -66,24 +86,30 @@ public class CourseManager {
 
 
     public void addCourse(int code){
-        // check for duplicates
+        // changes code from int to str then adds it
         String codeStr = Integer.toString(code);
-        if(!userCourses.contains(codeStr)){
-            userCourses.add(codeStr);
-            userRef.setValue(userCourses);
-        }
+        addCourse(codeStr);
     }
 
 
     public void addCourse(String code){
-
+        // check for duplicates before adding
         if(!userCourses.contains(code)){
             userCourses.add(code);
             userRef.setValue(userCourses);
         }
     }
 
+    public void removeCourse(int code){
+        removeCourse(Integer.toString(code));
+    }
 
+    public void removeCourse(String code){
+        userCourses.remove(code);
+        userRef.setValue((userCourses));
+    }
+
+    // for testing
     private void deptListeners(DatabaseReference ref){
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -108,14 +134,25 @@ public class CourseManager {
                 if (dataSnapshot.getValue() != null){
 
                     System.out.println(dataSnapshot.getValue());
+
+                    // clear userCourses ArrayList
                     userCourses.clear();
 
+                    // For course code in a userCourse list (Array<String>)
                     for(DataSnapshot data: dataSnapshot.getChildren()){
                         System.out.println("adding code");
                         System.out.println(data.getValue());
+
+                        // extract code
                         String code = (String)data.getValue();
+
+                        // add code to our list
                         userCourses.add(code);
-                        System.out.println(code);
+                    }
+
+                    if(adapter != null){
+                        // updates recyclerView if it exists
+                        adapter.notifyDataSetChanged();
                     }
 
                 }
@@ -144,11 +181,15 @@ public class CourseManager {
         });
     }
 
+
+
+    // for testing
     public void printDepts(){
         for(String dept: depts){
             System.out.println(dept);
         }
     }
+
 
     public String getUserId() {
         return userId;
@@ -159,6 +200,15 @@ public class CourseManager {
     public ArrayList<String> getUserCourses() {
 
         return (ArrayList<String>)userCourses;
+    }
+
+
+    public Map<String, Map<String, String>> getCourses() {
+        return courses;
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        this.adapter = adapter;
     }
 
     public ArrayList<Map<String, String>> getUserCoursesMap(){
@@ -173,6 +223,9 @@ public class CourseManager {
         return result;
     }
 
+
+
+    // not needed
     public boolean makeNewUser(String checkID) { //ONLY USE THIS METHOD FOR SIGN-UP ACTIVITY!
         if (userRef.child(userId).getRoot() != null){
             userRef.child(userId).setValue("");
@@ -181,5 +234,8 @@ public class CourseManager {
         return false;
     }
 
-   
+
+
+
+
 }

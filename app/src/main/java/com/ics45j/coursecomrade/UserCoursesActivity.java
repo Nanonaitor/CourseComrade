@@ -17,13 +17,13 @@ import java.util.Map;
 
 public class UserCoursesActivity extends AppCompatActivity {
     //Variables
-    private ArrayList<ExampleCourse> mCourseList;
+
     private RecyclerView mCourseRecyclerView;
     private RecyclerView.Adapter mCourseAdapter;
     private RecyclerView.LayoutManager mCourseLayout;
     private Button buttonRemove, buttonBack;
     private EditText removeCourse;
-    ArrayList<String> savedUserCourses;
+
     private CourseManager cm;
     private String username;
 
@@ -37,7 +37,6 @@ public class UserCoursesActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Declarations
-        mCourseList = new ArrayList<>();
         buttonRemove = findViewById(R.id.buttonRemove);
         buttonBack = findViewById(R.id.buttonBackOutUserCourses);
         removeCourse = findViewById(R.id.editTextDelete);
@@ -45,11 +44,13 @@ public class UserCoursesActivity extends AppCompatActivity {
 
         Bundle bundle = intent.getExtras();
         username = bundle.getString("username");
-        savedUserCourses = new ArrayList<String>(bundle.getStringArrayList("userCourses"));
+
+
+        System.out.println("init cm in usercoursesactivity");
         cm = new CourseManager(username);
 
         //Execute Methods (before course manager!)
-        createCourseList();
+
         buildRecyclerView();
 
         //Button methods
@@ -57,8 +58,8 @@ public class UserCoursesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    int position = Integer.parseInt(removeCourse.getText().toString());
-                    removeCourse(position);
+                    int code = Integer.parseInt(removeCourse.getText().toString());
+                    removeCourse(code);
                 }
                 catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), "You cannot remove an item that does not exist!", Toast.LENGTH_SHORT).show();
@@ -73,11 +74,9 @@ public class UserCoursesActivity extends AppCompatActivity {
         });
     }
 
-    public void removeCourse(int position) {
-        ArrayList<String> courseList = new ArrayList<String>(cm.getUserCourses());
-        for(int i = 0; i < courseList.size(); ++i){
-            System.out.println("Deleted a course.");
-        }
+    public void removeCourse(int code) {
+        // removes course by code
+        cm.removeCourse(code);
         mCourseAdapter.notifyDataSetChanged();
     }
 
@@ -89,33 +88,16 @@ public class UserCoursesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void createCourseList() {
-        System.out.println("Creating courses!");
-        System.out.println(savedUserCourses);
-        long startTime = System.currentTimeMillis();
-        long elapsedTime = 0;
-        while(cm.getUserCoursesMap().size() < 1 && elapsedTime < 2){
-            elapsedTime = System.currentTimeMillis() - startTime;
-            System.out.println(cm.getUserCoursesMap());
-            System.out.println(elapsedTime);
 
-        }
-        for (String element: savedUserCourses){
-            System.out.println("Course Displayed!");
-            System.out.println(cm.getCourse(element));
-            System.out.println("code");
-            Map<String, String> course = cm.getCourse(element);
-
-            mCourseList.add(new ExampleCourse(R.drawable.ic_class, course.get("code"), course.get("status")));
-        }
-        mCourseList.add(new ExampleCourse(R.drawable.ic_class, "class", "status"));
-    }
 
     public void buildRecyclerView() {
         mCourseRecyclerView = findViewById(R.id.recyclerView);
         mCourseRecyclerView.setHasFixedSize(true); //Increases performance
         mCourseLayout = new LinearLayoutManager(this);
-        mCourseAdapter = new courseAdapter(mCourseList);
+        mCourseAdapter = new courseAdapter(cm);
+
+        // set adapter in cm so that it updates when Firebase changes
+        cm.setAdapter(mCourseAdapter);
 
         mCourseRecyclerView.setLayoutManager(mCourseLayout);
         mCourseRecyclerView.setAdapter(mCourseAdapter);
