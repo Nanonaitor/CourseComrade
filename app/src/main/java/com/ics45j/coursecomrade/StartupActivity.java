@@ -7,8 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/* Made by Armando Contreras
+* Sets up Startup activity functionality
+* so application initializes properly*/
 public class StartupActivity extends AppCompatActivity {
-    private Button buttonLogin, buttonSignUp;
+    //Variables
+    private Button buttonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,31 +20,20 @@ public class StartupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_startup);
 
         getSupportActionBar().setTitle("Welcome");
+
+        //Declarations
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
+
+        //Buttons
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openLoginActivity();
             }
         });
-
-
-        /*buttonSignUp = (Button) findViewById(R.id.buttonSignUp);
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSignUpActivity();
-            }
-        });*/
-
     }
     public void openLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);           //UPDATE
-        startActivity(intent);
-    }
-
-    public void openSignUpActivity() {
-        Intent intent = new Intent(this, SignUpActivity.class);    //UPDATE
         startActivity(intent);
     }
 }

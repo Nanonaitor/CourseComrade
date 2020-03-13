@@ -15,9 +15,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 
+/* Made by Armando Contreras and Nathaniel Tisuela
+ * Sets up User Courses activity functionality*/
 public class UserCoursesActivity extends AppCompatActivity {
     //Variables
-
     private RecyclerView mCourseRecyclerView;
     private RecyclerView.Adapter mCourseAdapter;
     private RecyclerView.LayoutManager mCourseLayout;
@@ -34,7 +35,6 @@ public class UserCoursesActivity extends AppCompatActivity {
 
         //Action Bar Declarations
         getSupportActionBar().setTitle("My Courses");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Declarations
         buttonRemove = findViewById(R.id.buttonRemove);
@@ -45,12 +45,10 @@ public class UserCoursesActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         username = bundle.getString("username");
 
-
         System.out.println("init cm in usercoursesactivity");
         cm = new CourseManager(username);
 
         //Execute Methods (before course manager!)
-
         buildRecyclerView();
 
         //Button methods
@@ -74,12 +72,16 @@ public class UserCoursesActivity extends AppCompatActivity {
         });
     }
 
+    /*Made by Nathaniel Tisuela
+    * Removes courses from users course list as well as Firebase*/
     public void removeCourse(int code) {
         // removes course by code
         cm.removeCourse(code);
         mCourseAdapter.notifyDataSetChanged();
     }
 
+    /*Made by Nathaniel Tisuela
+    * Opens Main Activity and sends bundled information from Firebase*/
     public void openMainActivity() {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
@@ -88,8 +90,8 @@ public class UserCoursesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
+    /*Made by Armando Contreras
+    * Builds the recycler view to display users courses*/
     public void buildRecyclerView() {
         mCourseRecyclerView = findViewById(R.id.recyclerView);
         mCourseRecyclerView.setHasFixedSize(true); //Increases performance

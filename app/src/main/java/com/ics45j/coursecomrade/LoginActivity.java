@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/* Made by Armando Contreras
+ * Sets up Login activity functionality
+ * so users may log into their accounts*/
 public class LoginActivity extends AppCompatActivity {
     //Variables
     EditText textUsernameInput;
