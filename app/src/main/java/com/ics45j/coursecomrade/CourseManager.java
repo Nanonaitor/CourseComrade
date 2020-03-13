@@ -21,6 +21,7 @@ public class CourseManager {
     private Map<String, Map<String, String>> courses;
     private ArrayList<String> depts;
     private ArrayList<String> userCourses;
+    private Map<String, ArrayList<Map<String, String>>> chats;
 
     private String userId;
     private DatabaseReference userRef;
@@ -34,6 +35,7 @@ public class CourseManager {
         courses = new HashMap<String, Map<String, String>>();
         userCourses = new ArrayList<String>();
 
+
         adapter = null;
 
         this.userId = userId;
@@ -42,6 +44,9 @@ public class CourseManager {
         DatabaseReference coursesRef= database.getReference("courses");
         coursesRef.keepSynced(true); // helped fix a bug
         coursesListeners(coursesRef);
+
+        DatabaseReference chatsRef = database.getReference("chats");
+        chatsListeners(chatsRef);
 
         // Get reference to all users
         DatabaseReference AllUserCoursesRef = database.getReference("userCourses");
@@ -178,6 +183,25 @@ public class CourseManager {
             }
         });
     }
+
+    private void chatsListeners(DatabaseReference ref){
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                courses.clear();
+                System.out.println("in courses listener");
+                System.out.println(dataSnapshot.getValue());
+                courses = (Map<String, Map<String, String>>)dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+
+
 
     // for testing
     public void printDepts(){
