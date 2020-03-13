@@ -26,7 +26,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="126dp"
         android:layout_marginBottom="43dp"
-        android:hint="List Position"
+        android:hint="Course to Delete"
         android:inputType="number" />
 
     <Button
