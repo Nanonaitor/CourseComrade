@@ -74,7 +74,7 @@ public class CourseManager {
     }
 
 
-    public Map<String, String> getCourse(String code){//TODO: Fix this because it returns null for some reason.
+    public Map<String, String> getCourse(String code){
         return courses.get(code);
     }
 
@@ -124,7 +124,6 @@ public class CourseManager {
         });
     }
 
-
     private void userCoursesListener(DatabaseReference ref){
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -164,7 +163,6 @@ public class CourseManager {
         });
     }
 
-
     private void coursesListeners(DatabaseReference ref){
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -181,8 +179,6 @@ public class CourseManager {
         });
     }
 
-
-
     // for testing
     public void printDepts(){
         for(String dept: depts){
@@ -190,18 +186,14 @@ public class CourseManager {
         }
     }
 
-
     public String getUserId() {
         return userId;
     }
-
-
 
     public ArrayList<String> getUserCourses() {
 
         return (ArrayList<String>)userCourses;
     }
-
 
     public Map<String, Map<String, String>> getCourses() {
         return courses;
@@ -233,9 +225,4 @@ public class CourseManager {
         }
         return false;
     }
-
-
-
-
-
 }
