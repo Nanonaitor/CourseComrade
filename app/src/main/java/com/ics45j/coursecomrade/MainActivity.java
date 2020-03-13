@@ -13,12 +13,15 @@ import org.w3c.dom.Text;
 
 import java.util.concurrent.TimeUnit;
 
+/* Made by Armando Contreras and Nathaniel Tisuela
+ * Sets up Main activity functionality. Serves
+ * as a users home menu.*/
 public class MainActivity extends AppCompatActivity {
     private Button buttonSearch, buttonUserCourses;
     private String username;
     private TextView displayedUsername;
 
-    // everything that needs Firebase goes through courseManager
+    // Everything that needs Firebase goes through courseManager
     // actually it's not needed here
 
 
@@ -62,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /* Made by Armando Contreras and Nathaniel Tisuela
+     * opens the search activity and sends bundled
+     * information to it*/
     public void openSearchActivity() {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
@@ -71,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /* Made by Armando Contreras and Nathaniel Tisuela
+     * opens the user courses activity and sends bundled
+     * information to it*/
     public void openUserCoursesActivity() {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);

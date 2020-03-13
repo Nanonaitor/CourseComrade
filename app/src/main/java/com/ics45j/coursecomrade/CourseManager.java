@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+/* Made by Nathaniel Tisuela
+ * Used to manage course information
+ * that has been stored in Firebase*/
 public class CourseManager {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -27,8 +30,6 @@ public class CourseManager {
     private DatabaseReference userRef;
 
     private RecyclerView.Adapter adapter;
-
-
 
     public CourseManager(String userId) {
         depts = new ArrayList<String>();
@@ -57,8 +58,6 @@ public class CourseManager {
         // Grab data for this specific user from firebase
         userCoursesListener(userRef);
 
-
-
         // Used for testing purposes
         DatabaseReference deptsRef= database.getReference("depts");
         deptListeners(deptsRef);
@@ -66,18 +65,6 @@ public class CourseManager {
         //Remove these if u need to Nathan, just testing stuff...
         System.out.println();
     }
-
-
-
-
-
-    // Constructor to make a new user. Not really needed
-    public CourseManager(String userId, boolean newUser){
-        this.userId = userId;
-        DatabaseReference AllUserCoursesRef = database.getReference("userCourses");
-        userRef = FirebaseDatabase.getInstance().getReference().child("userCourses");
-    }
-
 
     public Map<String, String> getCourse(String code){
         return courses.get(code);
@@ -89,13 +76,11 @@ public class CourseManager {
         return courses.get(codeStr);
     }
 
-
     public void addCourse(int code){
         // changes code from int to str then adds it
         String codeStr = Integer.toString(code);
         addCourse(codeStr);
     }
-
 
     public void addCourse(String code){
         // check for duplicates before adding
@@ -237,16 +222,5 @@ public class CourseManager {
             result.add(courses.get(code));
         }
         return result;
-    }
-
-
-
-    // not needed
-    public boolean makeNewUser(String checkID) { //ONLY USE THIS METHOD FOR SIGN-UP ACTIVITY!
-        if (userRef.child(userId).getRoot() != null){
-            userRef.child(userId).setValue("");
-            return true;
-        }
-        return false;
     }
 }

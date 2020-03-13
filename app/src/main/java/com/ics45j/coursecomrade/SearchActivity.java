@@ -11,6 +11,10 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+/* Made by Armando Contreras and Nathaniel Tisuela
+* This class allows the user to search for courses
+* and retrieve them from firebase so they may be
+* included in their personal course list*/
 public class SearchActivity extends AppCompatActivity {
     //Variables
     EditText textCourseNumberInput;
@@ -26,7 +30,6 @@ public class SearchActivity extends AppCompatActivity {
 
         //Action Bar Declarations
         getSupportActionBar().setTitle("Search");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Declarations
         textCourseNumberInput = (EditText)findViewById(R.id.textCourseNumber);
@@ -60,8 +63,7 @@ public class SearchActivity extends AppCompatActivity {
                     submittedCourse = Integer.valueOf(textCourseNumberInput.getText().toString());
                     if(submittedCourse < 10000)
                         Toast.makeText(getApplicationContext(), "Please input a 5 digit number", Toast.LENGTH_SHORT).show();
-                    else {
-                        // check if course exists
+                    else { // check if course exists
                         if(cm.getCourse(submittedCourse) != null){
                             cm.addCourse(submittedCourse);
                             Toast.makeText(getApplicationContext(), "Added course #" + submittedCourse + " to your course list", Toast.LENGTH_SHORT).show();
@@ -81,11 +83,17 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    public void openDialog() {//Gets stuff from Warning Message
+    /* Made by Armando Contreras
+    * Makes warning dialog object that
+    * displays helpful information*/
+    public void openDialog() {
         WarningDialog warningDialog = new WarningDialog();
         warningDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
+    /* Made by Armando Contreras and Nathaniel Tisuela
+    * Bundles information for Firebase usage
+    * and opens MainActivity*/
     public void openMainActivity() {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);

@@ -5,12 +5,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+/*Made by Armando Contreras
+ * Displays informational message to user*/
 public class WarningDialog extends AppCompatDialogFragment {
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -22,7 +21,6 @@ public class WarningDialog extends AppCompatDialogFragment {
 
                     }
                 });
-
         return builder.create();
     }
 }

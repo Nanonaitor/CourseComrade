@@ -9,9 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.Map;
 
+/* Made by Armando Contreras
+ * Makes an adapter for course items
+ * so they may be later displayed on
+ * a recycler view*/
 public class courseAdapter extends RecyclerView.Adapter<courseAdapter.courseViewHolder> {
     private CourseManager courseManager;
 
@@ -26,8 +29,6 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.courseView
             text2 = itemView.findViewById(R.id.textView2);
         }
     }
-
-
 
     public courseAdapter(CourseManager courseManager) { this.courseManager = courseManager;}
 

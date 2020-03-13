@@ -17,20 +17,24 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/* Made by Nathaniel Tisuela
+* This class is designed to scrap information from
+* "https://www.reg.uci.edu/perl/WebSoc" which displays
+* UCI's courses information. WebSoc Scrapper retrieves,
+* organizes and stores it in Firebase.
+* */
 public class WebSocScraper{
     private final String homePage = "https://www.reg.uci.edu/perl/WebSoc/";
     private final String submitType = "Text";
     private final String yearTerm = "2020-14";
     private Map<String, String> depts;
 
-
-
     public WebSocScraper(){
         depts = new HashMap<String, String>();
     }
 
-
-
+    /* Made by Nathaniel Tisuela
+    * Stores all classes*/
     public void initAllClasses() {
 
         Document homeDoc = runConnectDocument(homePage);
@@ -202,8 +206,6 @@ public class WebSocScraper{
 
         }
     }
-
-
 }
 
 
