@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Everything that needs Firebase goes through courseManager
     // actually it's not needed here
-    private CourseManager courseManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialize courseManager
         // This will grab all information needed from Firebase
-        courseManager = new CourseManager(username);
+
 
         //Action Bar Declarations
         getSupportActionBar().setTitle("Home");
@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     public void openUserCoursesActivity() {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
-        bundle.putStringArrayList("userCourses", courseManager.getUserCourses());
 
         Intent intent = new Intent(this, UserCoursesActivity.class);
         intent.putExtras(bundle);
