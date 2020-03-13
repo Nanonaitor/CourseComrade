@@ -14,7 +14,7 @@ import java.util.Map;
 public class SearchActivity extends AppCompatActivity {
     //Variables
     EditText textCourseNumberInput;
-    Button buttonReset, buttonHelp, buttonSubmit;
+    Button buttonReset, buttonHelp, buttonSubmit, buttonSaveChanges;
     int submittedCourse;
     CourseManager cm;
     private String username;
@@ -33,6 +33,7 @@ public class SearchActivity extends AppCompatActivity {
         buttonReset = findViewById(R.id.buttonReset);
         buttonHelp = findViewById(R.id.buttonHelp);
         buttonSubmit = findViewById(R.id.buttonSubmit);
+        buttonSaveChanges = findViewById(R.id.buttonSaveChanges);
         submittedCourse = 0;
 
         Intent intent = getIntent();
@@ -52,6 +53,14 @@ public class SearchActivity extends AppCompatActivity {
                 openDialog();
             }
         });
+
+        buttonSaveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
+
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

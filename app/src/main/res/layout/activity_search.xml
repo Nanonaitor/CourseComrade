@@ -77,6 +77,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.266" />
 
+    <Button
+        android:id="@+id/buttonSaveChanges"
+        android:layout_width="159dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_button"
+        android:text="Save Changes"
+        android:textColor="@color/colorPrimaryWhite"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
