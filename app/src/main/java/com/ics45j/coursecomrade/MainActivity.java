@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private Button buttonSearch, buttonUserCourses;
-    private String username = "dathan";
+    private String username;
 
     // everything that needs Firebase goes through courseManager
     // actually it's not needed here
@@ -23,6 +23,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        System.out.println("grabbing username");
+        username = bundle.getString("username");
+        System.out.println("opening main");
+
         //Initialize courseManager
         // This will grab all information needed from Firebase
         courseManager = new CourseManager(username);
@@ -32,11 +38,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Timeout to Allow time for data to be retrieved.
+        /* // you NEVER want to stop the main thread
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+         */
 
         //Buttons
         buttonSearch = (Button) findViewById(R.id.buttonSearch);

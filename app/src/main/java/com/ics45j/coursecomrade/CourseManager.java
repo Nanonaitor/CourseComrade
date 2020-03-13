@@ -20,7 +20,7 @@ public class CourseManager {
     private ArrayList<String> depts;
     private ArrayList<String> userCourses;
 
-    private final String userId;
+    private String userId;
     private DatabaseReference userRef;
 
 
@@ -104,8 +104,9 @@ public class CourseManager {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot != null){
-                    System.out.println("in userCoursesListener");
+                System.out.println("in userCoursesListener");
+                if (dataSnapshot.getValue() != null){
+
                     System.out.println(dataSnapshot.getValue());
                     userCourses.clear();
 
@@ -179,4 +180,6 @@ public class CourseManager {
         }
         return false;
     }
+
+   
 }

@@ -14,7 +14,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText textUsernameInput;
     Button buttonLogin;
     String submittedUsername;
-
+    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submittedUsername = textUsernameInput.getText().toString();
+                username = textUsernameInput.getText().toString();
                 Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
                 //TODO: Make Login work!
                 openMainActivity();
@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "That user does not exist. Please try again", Toast.LENGTH_SHORT).show();
                 else {
                     // LOGIN!
+
                 }*/
 
             }
@@ -47,7 +48,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);           //UPDATE
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(bundle);
+
         startActivity(intent);
     }
 }

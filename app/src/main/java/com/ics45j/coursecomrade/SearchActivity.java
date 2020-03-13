@@ -17,6 +17,7 @@ public class SearchActivity extends AppCompatActivity {
     Button buttonReset, buttonHelp, buttonSubmit;
     int submittedCourse;
     CourseManager cm;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String username = bundle.getString("username");
+        username = bundle.getString("username");
         cm = new CourseManager(username);
 
         buttonReset.setOnClickListener(new View.OnClickListener() {
@@ -76,5 +77,14 @@ public class SearchActivity extends AppCompatActivity {
     public void openDialog() {//Gets stuff from Warning Message
         WarningDialog warningDialog = new WarningDialog();
         warningDialog.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    public void openMainActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

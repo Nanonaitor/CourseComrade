@@ -75,13 +75,21 @@ public class UserCoursesActivity extends AppCompatActivity {
     public void createCourseList() {
         System.out.println("Creating courses!");
         System.out.println(savedUserCourses);
+        long startTime = System.currentTimeMillis();
+        long elapsedTime = 0;
+        while(cm.getUserCoursesMap().size() < 1 && elapsedTime < 2){
+            elapsedTime = System.currentTimeMillis() - startTime;
+            System.out.println(cm.getUserCoursesMap());
+            System.out.println(elapsedTime);
+
+        }
         for (String element: savedUserCourses){
             System.out.println("Course Displayed!");
-            System.out.println(cm.getCourse(element));//TODO: fix the getCourse method in CourseManager.
+            System.out.println(cm.getCourse(element));
             System.out.println("code");
             Map<String, String> course = cm.getCourse(element);
 
-            mCourseList.add(new ExampleCourse(R.drawable.ic_class, course.get("code"), course.get("status")));//Crashes here???
+            mCourseList.add(new ExampleCourse(R.drawable.ic_class, course.get("code"), course.get("status")));
         }
         mCourseList.add(new ExampleCourse(R.drawable.ic_class, "class", "status"));
     }
